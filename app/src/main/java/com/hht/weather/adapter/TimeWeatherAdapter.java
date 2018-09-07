@@ -32,6 +32,9 @@ public class TimeWeatherAdapter extends RecyclerView.Adapter<TimeWeatherAdapter.
 
     @Override
     public void onBindViewHolder(TimeWeatherAdapter.TimeWeatherViewHolder holder, int position) {
+        holder.time.setText("17点");
+        holder.timeWeather.setImageResource(R.drawable.weather);
+        holder.timeTemperature.setText("31`C");
     }
 
     @Override
