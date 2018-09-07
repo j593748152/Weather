@@ -5,19 +5,19 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView70"
+        android:id="@+id/textView_time"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:text="TextView" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/imageView_time_weather"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:src="@drawable/lb_ic_nav_arrow" />
 
     <TextView
-        android:id="@+id/textView71"
+        android:id="@+id/textView_time_temperature"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="TextView" />

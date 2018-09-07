@@ -27,8 +27,8 @@ public  class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter
     public void onBindViewHolder(WeekWeatherViewHolder holder, int position) {
         //TODO set item data
         holder.date.setText("8/22");
-        holder.weather.setImageResource(R.drawable.weather);
-        holder.temperature.setText("28/32`C");
+        holder.weekWeather.setImageResource(R.drawable.weather);
+        holder.weekTemperature.setText("28/32`C");
     }
 
     @Override
@@ -49,15 +49,15 @@ public  class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter
     class WeekWeatherViewHolder extends RecyclerView.ViewHolder {
 
         private TextView date;
-        private ImageView weather;
-        private TextView temperature;
+        private ImageView weekWeather;
+        private TextView weekTemperature;
 
         public WeekWeatherViewHolder(View itemView) {
             super(itemView);
             //TODO define view in item
             date = itemView.findViewById(R.id.textView_item_date);
-            weather = itemView.findViewById(R.id.imageView_item_weather);
-            temperature = itemView.findViewById(R.id.textView_item_temperature);
+            weekWeather = itemView.findViewById(R.id.imageView_item_weather);
+            weekTemperature = itemView.findViewById(R.id.textView_item_temperature);
         }
     }
 }
