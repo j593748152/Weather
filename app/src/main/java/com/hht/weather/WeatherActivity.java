@@ -47,7 +47,6 @@ public class WeatherActivity extends Activity implements View.OnClickListener{
         mWeatherSetting = findViewById(R.id.imageButton_setting);
         mWeatherSetting.setOnClickListener(this);
 
-
 /*      not work
         mCityDao = new CityDao(this);
         mCityDao.insertCity(300100,"beijing", "beijing");

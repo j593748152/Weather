@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.hht.weather.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public  class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.WeekWeatherViewHolder> {
 
@@ -25,10 +27,10 @@ public  class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter
 
     @Override
     public void onBindViewHolder(WeekWeatherViewHolder holder, int position) {
-        //TODO set item data
-        holder.date.setText("8/22");
-        holder.weekWeather.setImageResource(R.drawable.weather);
-        holder.weekTemperature.setText("28/32`C");
+        //TODO set item data,time must server`s time
+        holder.date.setText("8/" + 22 + (position));
+        holder.weekWeather.setImageResource(R.drawable.weather_icon_fog);
+        holder.weekTemperature.setText("28/32℃");
     }
 
     @Override

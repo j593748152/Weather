@@ -5,7 +5,8 @@
     android:id="@+id/layout_weather_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@color/lb_playback_icon_highlight_no_theme">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,7 +19,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/weather"
+            android:src="@drawable/weather_cloudy1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,7 +30,7 @@
             android:layout_height="32dp"
             android:layout_marginEnd="24dp"
             android:layout_marginTop="52dp"
-            android:text="TextView"
+            android:text="28℃"
             app:layout_constraintEnd_toStartOf="@+id/imageView_weather"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,7 +40,7 @@
             android:layout_height="47dp"
             android:layout_marginEnd="24dp"
             android:layout_marginTop="28dp"
-            android:text="TextView"
+            android:text="深圳"
             app:layout_constraintEnd_toStartOf="@+id/imageView_weather"
             app:layout_constraintTop_toBottomOf="@+id/textView_temprature" />
 
@@ -49,7 +50,7 @@
             android:layout_height="46dp"
             android:layout_marginEnd="4dp"
             android:layout_marginTop="28dp"
-            android:src="@drawable/lb_ic_nav_arrow"
+            android:src="@drawable/location"
             app:layout_constraintEnd_toStartOf="@+id/textView_location"
             app:layout_constraintTop_toBottomOf="@+id/textView_temprature" />
 
@@ -59,7 +60,7 @@
             android:layout_height="38dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="52dp"
-            android:text="TextView"
+            android:text="晴"
             app:layout_constraintStart_toEndOf="@+id/imageView_weather"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,7 +70,7 @@
             android:layout_height="36dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="12dp"
-            android:text="TextView"
+            android:text="28℃/31℃"
             app:layout_constraintStart_toEndOf="@+id/imageView_weather"
             app:layout_constraintTop_toBottomOf="@+id/textView_weather" />
 
@@ -79,14 +80,14 @@
             android:layout_height="48dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="4dp"
-            android:text="TextView"
+            android:text="空气良"
             app:layout_constraintStart_toEndOf="@+id/imageView_weather"
             app:layout_constraintTop_toBottomOf="@+id/textView_tempRank" />
 
         <ImageButton
             android:id="@+id/imageButton_setting"
             android:layout_width="25dp"
-            android:layout_height="24dp"
+            android:layout_height="25dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:src="@drawable/setting"
@@ -99,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="24dp"
-            android:text="TextView"
+            android:text="17：55发布"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     </android.support.constraint.ConstraintLayout>

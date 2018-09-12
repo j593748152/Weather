@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.hht.weather.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class TimeWeatherAdapter extends RecyclerView.Adapter<TimeWeatherAdapter.TimeWeatherViewHolder>{
     private Context mContext;
@@ -32,9 +33,58 @@ public class TimeWeatherAdapter extends RecyclerView.Adapter<TimeWeatherAdapter.
 
     @Override
     public void onBindViewHolder(TimeWeatherAdapter.TimeWeatherViewHolder holder, int position) {
-        holder.time.setText("17点");
-        holder.timeWeather.setImageResource(R.drawable.weather);
-        holder.timeTemperature.setText("31`C");
+        //TODO set item data,time must server`s time
+        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        if (position == 0){
+            holder.time.setText("现在");
+            holder.timeWeather.setImageResource(R.drawable.weather_icon_sunny);
+            holder.timeTemperature.setText("31℃");
+        }else if (position == 1){
+            int h = (hour + 2*position)%24;
+            holder.time.setText(h + "点");
+            holder.timeWeather.setImageResource(R.drawable.weather_icon_cloudy1);
+            holder.timeTemperature.setText((31-position)+"℃");
+        }else if (position == 2){
+            int h = (hour + 2*position)%24;
+            holder.time.setText(h + "点");
+            holder.timeWeather.setImageResource(R.drawable.weather_icon_cloudy2);
+            holder.timeTemperature.setText((31-position)+"℃");
+        }else if (position == 3){
+            int h = (hour + 2*position)%24;
+            holder.time.setText(h + "点");
+            holder.timeWeather.setImageResource(R.drawable.weather_icon_fog);
+            holder.timeTemperature.setText((31-position)+"℃");
+        }else if (position == 4){
+            int h = (hour + 2*position)%24;
+            holder.time.setText(h + "点");
+            holder.timeWeather.setImageResource(R.drawable.weather_icon_rain1);
+            holder.timeTemperature.setText((31-position)+"℃");
+        }else if (position == 5){
+            int h = (hour + 2*position)%24;
+            holder.time.setText(h + "点");
+            holder.timeWeather.setImageResource(R.drawable.weather_icon_rain3);
+            holder.timeTemperature.setText((31-position)+"℃");
+        }else if (position == 6){
+            int h = (hour + 2*position)%24;
+            holder.time.setText(h + "点");
+            holder.timeWeather.setImageResource(R.drawable.weather_icon_cloudy1);
+            holder.timeTemperature.setText((31-position)+"℃");
+        }else if (position == 7){
+            int h = (hour + 2*position)%24;
+            holder.time.setText(h + "点");
+            holder.timeWeather.setImageResource(R.drawable.weather_icon_rain4);
+            holder.timeTemperature.setText((31-position)+"℃");
+        }else if (position == 8){
+            int h = (hour + 2*position)%24;
+            holder.time.setText(h + "点");
+            holder.timeWeather.setImageResource(R.drawable.weather_icon_snow);
+            holder.timeTemperature.setText((31-position)+"℃");
+        }else {
+            int h = (hour + 2*position)%24;
+            holder.time.setText(h + "点");
+            holder.timeWeather.setImageResource(R.drawable.weather_icon_thunder);
+            holder.timeTemperature.setText((31-position)+"℃");
+        }
     }
 
     @Override

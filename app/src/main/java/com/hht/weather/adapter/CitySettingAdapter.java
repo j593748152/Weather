@@ -36,8 +36,9 @@ public class CitySettingAdapter extends RecyclerView.Adapter<CitySettingAdapter.
     @Override
     public void onBindViewHolder(CitySettingAdapter.CitySettingHolder holder, int position) {
         holder.cityName.setText("深圳");
-        holder.cityWeather.setImageResource(R.drawable.weather);
-        holder.cityTemperature.setText("28`C");
+        holder.cityLocationFlag.setImageResource(R.drawable.location);
+        holder.cityWeather.setImageResource(R.drawable.weather_icon_rain2);
+        holder.cityTemperature.setText("28℃");
 
     }
 

@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="575dp"
     android:layout_height="325dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/lb_tv_white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/lb_search_bar_hint_speech_mode">
 
         <ImageButton
             android:id="@+id/imageView_setting_back"
             android:layout_width="40dp"
-            android:layout_height="50dp"
-            android:layout_gravity="left" />
+            android:layout_height="40dp"
+            android:layout_gravity="left|center_vertical"
+            android:background="@drawable/back"/>
         <TextView
             android:id="@+id/textView_setting_tittle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="设置"/>
+            android:textColor="@color/black"
+            android:text="设置" />
     </LinearLayout>
 
     <LinearLayout
@@ -35,27 +40,32 @@
             android:layout_width="41dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:text="温度单位" />
 
         <RadioGroup
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:textColor="@color/black">
 
             <RadioButton
                 android:id="@+id/radioButton_Celsius"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="`C" />
+                android:textColor="@color/black"
+                android:text="℃" />
 
             <RadioButton
                 android:id="@+id/radioButton_Fahrenheit"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="`F" />
+                android:textColor="@color/black"
+                android:text="℉" />
 
         </RadioGroup>
     </LinearLayout>
@@ -65,16 +75,21 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            android:text="城市管理"
+            />
         <ImageButton
             android:id="@+id/imageButton_add_city"
             android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="right"/>
+            android:layout_height="40dp"
+            android:layout_gravity="right|center_vertical"
+            android:background="@drawable/add"/>
 
 
     </LinearLayout>
