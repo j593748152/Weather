@@ -44,8 +44,8 @@ public class WeatherActivity extends Activity implements View.OnClickListener{
         mTimeWeatherRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mTimeWeatherRecyclerView.setAdapter(mTimeWeatherAdapter);
 
-        mWeatherSetting = findViewById(R.id.imageButton_setting);
-        mWeatherSetting.setOnClickListener(this);
+        initOnClickListener();
+
 
 /*      not work
         mCityDao = new CityDao(this);
@@ -62,6 +62,10 @@ public class WeatherActivity extends Activity implements View.OnClickListener{
         });*/
     }
 
+    private void initOnClickListener(){
+        mWeatherSetting = findViewById(R.id.imageButton_setting);
+        mWeatherSetting.setOnClickListener(this);
+    }
     @Override
     public void onClick(View view) {
         int viewId = view.getId();

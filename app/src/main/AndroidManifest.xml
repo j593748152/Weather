@@ -20,7 +20,10 @@
         </intent-filter>
         </activity>
         <activity android:name=".WeatherSettingActivity"
-            android:theme="@android:style/Theme.Translucent">
+            android:theme="@style/TransparentDialog">
+        </activity>
+        <activity android:name=".AddCityActivity"
+            android:theme="@style/TransparentDialog">
         </activity>
 
     </application>

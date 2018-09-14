@@ -84,23 +84,25 @@
             app:layout_constraintStart_toEndOf="@+id/imageView_weather"
             app:layout_constraintTop_toBottomOf="@+id/textView_tempRank" />
 
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginEnd="8dp"
+            android:text="17：55发布"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton_setting" />
+
         <ImageButton
             android:id="@+id/imageButton_setting"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
+            android:background="@color/transparent"
             android:src="@drawable/setting"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textView" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="24dp"
-            android:text="17：55发布"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     </android.support.constraint.ConstraintLayout>

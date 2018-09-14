@@ -3,16 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="575dp"
     android:layout_height="325dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     android:orientation="vertical"
-    android:background="@color/lb_tv_white">
+    android:background="@drawable/rounded_background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:background="@color/lb_search_bar_hint_speech_mode">
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/imageView_setting_back"
@@ -25,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_black"
             android:text="设置" />
     </LinearLayout>
 
@@ -41,7 +44,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_black"
             android:text="温度单位" />
 
         <RadioGroup
@@ -49,14 +52,17 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:textColor="@color/black">
+            android:gravity="center_vertical"
+            android:textColor="@color/text_color_black">
 
             <RadioButton
                 android:id="@+id/radioButton_Celsius"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:textColor="@color/text_color_black"
+                android:defaultFocusHighlightEnabled="true"
                 android:text="℃" />
 
             <RadioButton
@@ -64,7 +70,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:textColor="@color/text_color_black"
                 android:text="℉" />
 
         </RadioGroup>
@@ -80,7 +87,7 @@
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_black"
             android:gravity="center_vertical"
             android:text="城市管理"
             />
