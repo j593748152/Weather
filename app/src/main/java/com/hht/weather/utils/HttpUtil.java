@@ -18,8 +18,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class HttpUtil {
-    public static final String s = "http://www.weather.com.cn/data/sk/xxxxxxxxx.html";
 
+    private static final String TAG = "HttpUtil";
+    public static final String MY_KEY = "4051ea2ba37948af8b6995fbc3e9cb01";
+    public static final String HE_WEATHER_URL = "https://free-api.heweather.com/s6/weather/now?key=" + MY_KEY + "&";
+    public static final String HE_WEATHER_HOURLY_URL = "https://free-api.heweather.com/s6/weather/hourly?key=" + MY_KEY + "&";
+    public static final String HE_WEATHER_WEEK_URL = "https://free-api.heweather.com/s6/weather/forecast?key=" + MY_KEY + "&";
+    public static final String HE_WEATHER_LOCATION = "location=";
     public static final String city = "http://guolin.tech/api/china/";
 
     public static String getWebContent(String strUrl) {
@@ -37,7 +42,7 @@ public class HttpUtil {
             while ((line = reader.readLine()) != null) {
                 stringBuffer.append(line);
             }
-            Log.d("TAG", stringBuffer.toString());
+            Log.d(TAG, stringBuffer.toString());
             return stringBuffer.toString();
         } catch (MalformedURLException e) {
             e.printStackTrace();
