@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -46,6 +47,10 @@ public class WeatherActivity extends Activity implements View.OnClickListener{
 
         initOnClickListener();
 
+        mCityDao = new CityDao(this);
+        mCityDao.insertCity(1011010,"北京","北京","beijing","bj");
+        int cityCode = mCityDao.qureyCityCode("北京");
+        Log.d(TAG, "cityCode = " + cityCode);
 
 /*      not work
         mCityDao = new CityDao(this);
