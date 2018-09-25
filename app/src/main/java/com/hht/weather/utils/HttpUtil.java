@@ -24,6 +24,8 @@ public class HttpUtil {
     public static final String HE_WEATHER_URL = "https://free-api.heweather.com/s6/weather/now?key=" + MY_KEY + "&";
     public static final String HE_WEATHER_HOURLY_URL = "https://free-api.heweather.com/s6/weather/hourly?key=" + MY_KEY + "&";
     public static final String HE_WEATHER_WEEK_URL = "https://free-api.heweather.com/s6/weather/forecast?key=" + MY_KEY + "&";
+    public static final String HE_AIR_QUALITY_URL = "https://free-api.heweather.com/s6/air/now?key=" + MY_KEY + "&";
+    public static final String HE_TEMP_RAND_URL = "https://free-api.heweather.com/s6/weather?key=" + MY_KEY + "&";
     public static final String HE_WEATHER_LOCATION = "location=";
     public static final String city = "http://guolin.tech/api/china/";
 
@@ -117,25 +119,6 @@ public class HttpUtil {
         }
         return null;
     }
-/*
-    public static String getWebContent2(String strUrl) {
-        HttpURLConnection conn = null;
-        try {
-            HttpClient httpClient=new DefaultHttpClient();
-            HttpGet httpGet=new HttpGet(strUrl);
-            HttpResponse httpResponse=httpClient.execute(httpGet);
-            return stringBuffer.toString();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (conn != null) {
-                conn.disconnect();
-            }
-        }
-        return null;
-    }*/
 
     public static boolean isNetworkAvalible(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context

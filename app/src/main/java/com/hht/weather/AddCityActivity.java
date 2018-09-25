@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.hht.weather.adapter.AddCityAdapter;
-import com.hht.weather.listener.RecyclerViewClickInterface;
+import com.hht.weather.interface_.RecyclerViewClickInterface;
 
 import java.util.ArrayList;
 

@@ -13,7 +13,7 @@ import android.widget.ImageButton;
 
 import com.hht.weather.adapter.TimeWeatherAdapter;
 import com.hht.weather.adapter.WeekWeatherAdapter;
-import com.hht.weather.data.CityDao;
+import com.hht.weather.data.DataDao;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class WeatherActivity extends Activity implements View.OnClickListener{
     private WeekWeatherAdapter mWeekWeatherAdapter = null;
     private RecyclerView mTimeWeatherRecyclerView = null;
     private TimeWeatherAdapter mTimeWeatherAdapter = null;
-    private CityDao mCityDao = null;
+    private DataDao mDataDao = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,24 +47,8 @@ public class WeatherActivity extends Activity implements View.OnClickListener{
 
         initOnClickListener();
 
-        mCityDao = new CityDao(this);
-        mCityDao.insertCity(1011010,"北京","北京","beijing","bj");
-        int cityCode = mCityDao.qureyCityCode("北京");
-        Log.d(TAG, "cityCode = " + cityCode);
+        mDataDao = new DataDao(this);
 
-/*      not work
-        mCityDao = new CityDao(this);
-        mCityDao.insertCity(300100,"beijing", "beijing");
-        mCityDao.qureyCityCode("beijing");
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (HttpUtil.isNetworkAvalible(mContext)){
-                    Log.d(TAG, HttpUtil.getWebContent(HttpUtil.s.replace("xxxxxxxxx",  "" + mCityDao.qureyCityCode("beijing"))));
-                }
-            }
-        });*/
     }
 
     private void initOnClickListener(){

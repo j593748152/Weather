@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hht.weather.R;
-import com.hht.weather.listener.RecyclerViewClickInterface;
+import com.hht.weather.interface_.RecyclerViewClickInterface;
 
 import java.util.ArrayList;
 

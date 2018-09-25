@@ -11,10 +11,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
-import android.widget.Switch;
 
 import com.hht.weather.adapter.CitySettingAdapter;
-import com.hht.weather.listener.RecyclerViewClickInterface;
+import com.hht.weather.interface_.RecyclerViewClickInterface;
 
 import java.util.ArrayList;
 
