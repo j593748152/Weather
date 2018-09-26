@@ -32,12 +32,18 @@ public class DataDao {
         db = dbHelper.getWritableDatabase();
 
         //init city data
-        if (qureyAllCity() < 1) {
-            ArrayList<City> cityList = FileParser.parseCityCsv(mContext.getFilesDir() + cityCsv);
-            for (City city : cityList){
-                insertCity(city);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (qureyAllCity() < 1) {
+                    ArrayList<City> cityList = FileParser.parseCityCsv(mContext.getFilesDir() + cityCsv);
+                    for (City city : cityList){
+                        insertCity(city);
+                    }
+                }
             }
-        }
+        }).start();
+
     }
 
     public boolean insertCity(City city) {
@@ -52,11 +58,17 @@ public class DataDao {
         return true;
     }
 
-    public int qureyCityID(String city_name){
-        Cursor cursor = db.query(TABLE_CITY, new String[]{"_id"},"city_name=?", new String[]{"北京"},null,null,null);
+    public City qureyCityByName(String city_name){
+        Cursor cursor = db.query(TABLE_CITY, new String[]{"city_name,province_name,city_code"},"city_name=?", new String[]{city_name},null,null,null);
+        if(cursor.getCount() != 1){
+            return null;
+        }
         cursor.moveToFirst();
-        int city_id = cursor.getInt(0);
-        return city_id;
+        City city = new City();
+        city.setCity_name(cursor.getString(0));
+        city.setProvince_name(cursor.getString(1));
+        city.setCity_code(cursor.getString(2));
+        return city;
     }
 
     public String qureyCityCode(String cityName){

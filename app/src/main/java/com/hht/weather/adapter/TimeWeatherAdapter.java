@@ -100,7 +100,6 @@ public class TimeWeatherAdapter extends RecyclerView.Adapter<TimeWeatherAdapter.
 
         public TimeWeatherViewHolder(View itemView) {
             super(itemView);
-            //TODO define view in item
             time = itemView.findViewById(R.id.textView_time);
             timeWeather = itemView.findViewById(R.id.imageView_time_weather);
             timeTemperature = itemView.findViewById(R.id.textView_time_temperature);

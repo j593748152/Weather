@@ -26,8 +26,8 @@ public class HttpUtil {
     public static final String HE_WEATHER_WEEK_URL = "https://free-api.heweather.com/s6/weather/forecast?key=" + MY_KEY + "&";
     public static final String HE_AIR_QUALITY_URL = "https://free-api.heweather.com/s6/air/now?key=" + MY_KEY + "&";
     public static final String HE_TEMP_RAND_URL = "https://free-api.heweather.com/s6/weather?key=" + MY_KEY + "&";
+    public static final String HE_COMMON_CITY_URL = "https://search.heweather.com/top?group=cn&number=10&key=" + MY_KEY;
     public static final String HE_WEATHER_LOCATION = "location=";
-    public static final String city = "http://guolin.tech/api/china/";
 
     public static String getWebContent(String strUrl) {
         HttpURLConnection conn = null;
@@ -49,68 +49,6 @@ public class HttpUtil {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (conn != null) {
-                conn.disconnect();
-            }
-        }
-        return null;
-    }
-
-    public static JSONObject getProvince(){
-        HttpURLConnection conn = null;
-        try {
-            URL url = new URL(city);
-            conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setReadTimeout(10000);
-
-            InputStream in = conn.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            StringBuffer stringBuffer = new StringBuffer();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                stringBuffer.append(line);
-            }
-            Log.d("TAG", stringBuffer.toString());
-            return new JSONObject(stringBuffer.toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } finally {
-            if (conn != null) {
-                conn.disconnect();
-            }
-        }
-        return null;
-    }
-
-    public static JSONArray getCity(String provinceCode){
-        HttpURLConnection conn = null;
-        try {
-            URL url = new URL(city+ "/" + provinceCode);
-            conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setReadTimeout(10000);
-
-            InputStream in = conn.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            StringBuffer stringBuffer = new StringBuffer();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                stringBuffer.append(line);
-            }
-            Log.d("TAG", stringBuffer.toString());
-            return new JSONArray(stringBuffer.toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
             e.printStackTrace();
         } finally {
             if (conn != null) {

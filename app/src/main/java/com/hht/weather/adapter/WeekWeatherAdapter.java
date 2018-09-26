@@ -56,7 +56,6 @@ public  class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter
 
         public WeekWeatherViewHolder(View itemView) {
             super(itemView);
-            //TODO define view in item
             date = itemView.findViewById(R.id.textView_item_date);
             weekWeather = itemView.findViewById(R.id.imageView_item_weather);
             weekTemperature = itemView.findViewById(R.id.textView_item_temperature);
