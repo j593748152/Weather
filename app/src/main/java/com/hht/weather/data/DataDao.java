@@ -2,12 +2,15 @@ package com.hht.weather.data;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.hht.weather.utils.FileParser;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class DataDao {
@@ -36,9 +39,15 @@ public class DataDao {
             @Override
             public void run() {
                 if (qureyAllCity() < 1) {
-                    ArrayList<City> cityList = FileParser.parseCityCsv(mContext.getFilesDir() + cityCsv);
-                    for (City city : cityList){
-                        insertCity(city);
+                    AssetManager assetManager = mContext.getAssets() ;
+                    try {
+                        InputStream cityCsvInput = assetManager.open(cityCsv) ;
+                        ArrayList<City> cityList = FileParser.parseCityCsv(cityCsvInput);
+                        for (City city : cityList){
+                            insertCity(city);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -58,17 +67,24 @@ public class DataDao {
         return true;
     }
 
-    public City qureyCityByName(String city_name){
-        Cursor cursor = db.query(TABLE_CITY, new String[]{"city_name,province_name,city_code"},"city_name=?", new String[]{city_name},null,null,null);
-        if(cursor.getCount() != 1){
+    public ArrayList<City> qureyCityByName(String city_name){
+        if(city_name == null || city_name.equals("")){
             return null;
         }
-        cursor.moveToFirst();
-        City city = new City();
-        city.setCity_name(cursor.getString(0));
-        city.setProvince_name(cursor.getString(1));
-        city.setCity_code(cursor.getString(2));
-        return city;
+        ArrayList<City> cityArrayList = new ArrayList<>();
+        Cursor cursor = db.query(TABLE_CITY, new String[]{"city_name,province_name,city_code"},"city_name like ?", new String[]{"%"+city_name+"%"},null,null,null);
+        if(cursor.getCount() < 1){
+            return null;
+        }
+        for (cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()) {
+            City city = new City();
+            city.setCity_name(cursor.getString(0));
+            city.setProvince_name(cursor.getString(1));
+            city.setCity_code(cursor.getString(2));
+            cityArrayList.add(city);
+        }
+
+        return cityArrayList;
     }
 
     public String qureyCityCode(String cityName){

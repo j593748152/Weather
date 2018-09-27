@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 
 import com.hht.weather.adapter.CitySettingAdapter;
+import com.hht.weather.data.DataDao;
 import com.hht.weather.interface_.RecyclerViewClickInterface;
 
 import java.util.ArrayList;
@@ -21,18 +22,24 @@ public class WeatherSettingActivity extends Activity implements View.OnClickList
     private final String TAG = "WeatherSettingActivity";
 
     private Context mContext = null;
+    private DataDao mDataDao = null;
+
+    private ImageButton mImageButtonBack = null;
     private RecyclerView mCitySettingRecyclerView = null;
     private CitySettingAdapter mCitySettingAdapter = null;
     private ImageButton mAddCtiyImageButton = null;
     private RadioButton mRadioButtonCelsius = null;
     private RadioButton mRadioButtonFahrenheit = null;
 
+    private ArrayList<String> mSelectedCitylist = null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_setting_activity);
         mContext = this;
-
+        mDataDao = new DataDao(this);
+        mImageButtonBack = findViewById(R.id.imageButton_setting_back);
         mAddCtiyImageButton = findViewById(R.id.imageButton_add_city);
 
         mRadioButtonCelsius = findViewById(R.id.radioButton_Celsius);
@@ -48,8 +55,15 @@ public class WeatherSettingActivity extends Activity implements View.OnClickList
 
     }
 
-    private void initClickListener(){
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSelectedCitylist = mDataDao.getAllSelectedCity();
+        mCitySettingAdapter.setDatas(mSelectedCitylist);
+    }
 
+    private void initClickListener(){
+        mImageButtonBack.setOnClickListener(this);
         mAddCtiyImageButton.setOnClickListener(this);
         mRadioButtonCelsius.setOnClickListener(this);
         mRadioButtonFahrenheit.setOnClickListener(this);
@@ -61,7 +75,7 @@ public class WeatherSettingActivity extends Activity implements View.OnClickList
     public void onClick(View view) {
         int viewId = view.getId();
         switch (viewId) {
-            case R.id.imageView_setting_back:
+            case R.id.imageButton_setting_back:
                 finish();
                 break;
             case R.id.radioButton_Celsius:
@@ -86,7 +100,11 @@ public class WeatherSettingActivity extends Activity implements View.OnClickList
             case R.id.imageButton_delete_city:
                 int position = (int)view.getTag();
                 Log.e(TAG,"position = " + position);
-                //TODO delete city data
+                mDataDao.deleteSelectedCity(mSelectedCitylist.get(position));
+
+                mSelectedCitylist.remove(position);
+                mCitySettingAdapter.setDatas(mSelectedCitylist);
+                mCitySettingAdapter.setDeleteDisplay(false);
                 break;
             default:
                 mCitySettingAdapter.setDeleteDisplay(false);

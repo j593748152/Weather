@@ -20,7 +20,7 @@ public class CitySettingAdapter extends RecyclerView.Adapter<CitySettingAdapter.
     private final String TAG = "CitySettingAdapter";
 
     private Context mContext = null;
-    private ArrayList datas = null;
+    private ArrayList<String> mDatas = null;
 
     private RecyclerViewClickInterface mClickListener = null;
     private boolean mDeleteMode = false;
@@ -28,7 +28,7 @@ public class CitySettingAdapter extends RecyclerView.Adapter<CitySettingAdapter.
     public CitySettingAdapter(Context context, ArrayList data) {
         super();
         mContext = context;
-        datas = data;
+        mDatas = data;
     }
 
     public void setClickListener(RecyclerViewClickInterface clickListener){
@@ -37,6 +37,11 @@ public class CitySettingAdapter extends RecyclerView.Adapter<CitySettingAdapter.
 
     public void setDeleteDisplay(boolean deleteMode){
         mDeleteMode = deleteMode;
+        notifyDataSetChanged();
+    }
+
+    public void setDatas(ArrayList<String> datas){
+        mDatas = datas;
         notifyDataSetChanged();
     }
 
@@ -53,7 +58,7 @@ public class CitySettingAdapter extends RecyclerView.Adapter<CitySettingAdapter.
 
     @Override
     public void onBindViewHolder(CitySettingAdapter.CitySettingHolder holder, int position) {
-        holder.cityName.setText("深圳");
+        holder.cityName.setText(mDatas.get(position));
         holder.cityLocationFlag.setImageResource(R.drawable.location);
         holder.cityWeather.setImageResource(R.drawable.weather_icon_rain2);
         holder.cityTemperature.setText("28℃");
@@ -65,7 +70,7 @@ public class CitySettingAdapter extends RecyclerView.Adapter<CitySettingAdapter.
 
     @Override
     public int getItemCount() {
-        return 3;
+        return mDatas.size();
     }
 
     @Override

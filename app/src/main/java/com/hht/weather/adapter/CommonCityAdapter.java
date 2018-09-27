@@ -32,7 +32,7 @@ public class CommonCityAdapter extends RecyclerView.Adapter<CommonCityAdapter.Co
         cityTextView.setGravity(Gravity.CENTER);
         cityTextView.setTextColor(R.color.text_color_black);
         CommonCityViewHolder viewHolder = new CommonCityViewHolder(cityTextView);
-        return null;
+        return viewHolder;
     }
 
     @Override

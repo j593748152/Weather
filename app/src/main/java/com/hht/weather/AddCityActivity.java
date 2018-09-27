@@ -29,6 +29,8 @@ public class AddCityActivity extends Activity implements View.OnClickListener, R
 
     private Context mContext = null;
     private DataDao mDataDao = null;
+
+    private ImageButton mImageButtonBack = null;
     private EditText mSearchCityEditText = null;
     private ImageButton mSearchClearImageButton = null;
     private RecyclerView mAddCityRecyclerView = null;
@@ -39,7 +41,7 @@ public class AddCityActivity extends Activity implements View.OnClickListener, R
     private ImageView mImageViewNoResult = null;
     private TextView mTextViewNoResult = null;
 
-    private ArrayList<String> mCitySearchResult = new ArrayList<String>();
+    private ArrayList<City> mCitySearchResult = new ArrayList<City>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +49,8 @@ public class AddCityActivity extends Activity implements View.OnClickListener, R
         setContentView(R.layout.layout_add_city_activity);
         mContext = this;
         mDataDao = new DataDao(this);
+        mImageButtonBack = findViewById(R.id.imageButton_add_city_back);
+
         mSearchCityEditText = findViewById(R.id.editText_search_city);
         mSearchClearImageButton = findViewById(R.id.imageButton_search_clear);
 
@@ -70,7 +74,9 @@ public class AddCityActivity extends Activity implements View.OnClickListener, R
     }
 
     private void initListener(){
+        mImageButtonBack.setOnClickListener(this);
         mSearchClearImageButton.setOnClickListener(this);
+        mAddCityAdapter.setClickListener(this);
 
         mSearchCityEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -80,17 +86,17 @@ public class AddCityActivity extends Activity implements View.OnClickListener, R
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                City city = mDataDao.qureyCityByName(charSequence.toString());
-                if (city != null){
-                    mCitySearchResult.add(city.getCity_name() + "，中国，" + city.getProvince_name());
-                    mAddCityAdapter.setData(mCitySearchResult);
-
+                mCitySearchResult.clear();
+                ArrayList<City> cityArrayList = mDataDao.qureyCityByName(charSequence.toString());
+                if (cityArrayList != null && cityArrayList.size() > 0){
+                    mCitySearchResult = cityArrayList;
                     mImageViewNoResult.setVisibility(View.GONE);
                     mTextViewNoResult.setVisibility(View.GONE);
                 } else {
                     mImageViewNoResult.setVisibility(View.VISIBLE);
                     mTextViewNoResult.setVisibility(View.VISIBLE);
                 }
+                mAddCityAdapter.setData(mCitySearchResult);
 
             }
 
@@ -108,11 +114,11 @@ public class AddCityActivity extends Activity implements View.OnClickListener, R
     @Override
     public void onClickRecyclerView(View view) {
         int viewID = view.getId();
+        Log.i(TAG, "click " + viewID);
         switch (viewID){
             case R.id.textView_add_city:
                 int position = (int)view.getTag();
-                int index = mCitySearchResult.indexOf(",");
-                String city_name = mCitySearchResult.get(position).substring(0,index);
+                String city_name = mCitySearchResult.get(position).getCity_name();
                 mDataDao.insertSelectedCity(city_name);
                 Log.e(TAG, "positon = " + position + " city name = " + city_name);
                 break;
@@ -130,9 +136,13 @@ public class AddCityActivity extends Activity implements View.OnClickListener, R
     public void onClick(View view) {
         int viewId = view.getId();
         switch (viewId) {
+            case R.id.imageButton_add_city_back:
+                finish();
+                break;
             case R.id.imageButton_search_clear:
                 mSearchCityEditText.setText("");
                 mSearchCityEditText.requestFocusFromTouch();
+                break;
         }
 
     }

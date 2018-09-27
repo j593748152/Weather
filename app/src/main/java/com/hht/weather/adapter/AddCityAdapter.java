@@ -2,20 +2,23 @@ package com.hht.weather.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hht.weather.R;
+import com.hht.weather.data.City;
 import com.hht.weather.interface_.RecyclerViewClickInterface;
 
 import java.util.ArrayList;
 
 public class AddCityAdapter extends RecyclerView.Adapter<AddCityAdapter.AddCityViewHolder> implements View.OnClickListener{
+    private final static String TAG = "AddCityAdapter";
 
     private Context mContext = null;
-    private ArrayList<String> mData = null;
+    private ArrayList<City> mData = null;
 
     private RecyclerViewClickInterface mClickListener = null;
 
@@ -31,14 +34,15 @@ public class AddCityAdapter extends RecyclerView.Adapter<AddCityAdapter.AddCityV
         View itemView = LayoutInflater.from(mContext).inflate(
                 R.layout.item_add_city_recycler, parent, false);
         addCityViewHolder = new AddCityViewHolder(itemView);
-        itemView.setOnClickListener(this);
         return addCityViewHolder;
     }
 
     @Override
     public void onBindViewHolder(AddCityAdapter.AddCityViewHolder holder, int position) {
-        holder.cityName.setText(mData.get(position));
-        holder.itemView.setTag(position);
+        City city = mData.get(position);
+        holder.cityName.setText(city.getCity_name() + ",中国," + city.getProvince_name());
+        holder.cityName.setOnClickListener(this);
+        holder.cityName.setTag(position);
     }
 
     @Override
@@ -48,6 +52,7 @@ public class AddCityAdapter extends RecyclerView.Adapter<AddCityAdapter.AddCityV
 
     @Override
     public void onClick(View view) {
+        Log.i(TAG, " click " + view.getId());
         mClickListener.onClickRecyclerView(view);
     }
 
@@ -55,7 +60,7 @@ public class AddCityAdapter extends RecyclerView.Adapter<AddCityAdapter.AddCityV
         mClickListener = clickListener;
     }
 
-    public void setData(ArrayList<String> data){
+    public void setData(ArrayList<City> data){
         mData = data;
         notifyDataSetChanged();
     }

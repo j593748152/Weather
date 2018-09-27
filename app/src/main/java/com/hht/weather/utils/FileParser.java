@@ -1,5 +1,6 @@
 package com.hht.weather.utils;
 
+import android.content.res.AssetManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -10,6 +11,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,14 +24,13 @@ public class FileParser {
     private static String TAG = "FileParser";
 
 
-    public static ArrayList<City> parseCityCsv(String cityCsvPath)  {
+    public static ArrayList<City> parseCityCsv(InputStream cityCsvInput)  {
         ArrayList<City> cityList = new ArrayList<City>();
         cityList.clear();
-        File csvFile = new File(cityCsvPath);
         BufferedReader br = null;
         int i = 0;
         try {
-            br = new BufferedReader(new FileReader(csvFile));
+            br = new BufferedReader(new InputStreamReader(cityCsvInput));
             String line = "";
             while ((line = br.readLine()) != null){
                 i++;
