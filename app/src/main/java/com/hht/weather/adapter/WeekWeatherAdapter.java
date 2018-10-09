@@ -2,6 +2,7 @@ package com.hht.weather.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hht.weather.R;
+import com.hht.weather.data.WeekWeather;
+import com.hht.weather.utils.HttpUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,8 +19,10 @@ import java.util.Calendar;
 
 public  class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter.WeekWeatherViewHolder> {
 
+    private static final String TAG = "WeekWeatherAdapter";
+
     private Context mContext;
-    private ArrayList mDatas = new ArrayList<String>();
+    private ArrayList mDatas = new ArrayList<WeekWeather>();
 
     public WeekWeatherAdapter(Context context, ArrayList data) {
         super();
@@ -28,9 +33,13 @@ public  class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter
     @Override
     public void onBindViewHolder(WeekWeatherViewHolder holder, int position) {
         //TODO set item data,time must server`s time
-        holder.date.setText("8/" + 22 + (position));
-        holder.weekWeather.setImageResource(R.drawable.weather_icon_fog);
-        holder.weekTemperature.setText("28/32℃");
+        WeekWeather weekWeather = (WeekWeather) mDatas.get(position);
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd");
+        holder.date.setText(sdf.format(weekWeather.getDate()));
+        holder.weekWeather.setImageResource(getImageResource("he" + weekWeather.getCond_code()));
+        String tempMin = HttpUtil.getTemperature(weekWeather.getTemp_min());
+        String tempMax = HttpUtil.getTemperature(weekWeather.getTemp_max());
+        holder.weekTemperature.setText(tempMin + "/" + tempMax);
     }
 
     @Override
@@ -44,7 +53,15 @@ public  class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter
 
     @Override
     public int getItemCount() {
-        return 7;
+        return mDatas.size();
+    }
+
+    private int getImageResource(String name){
+        int id = mContext.getResources().getIdentifier(name, "drawable", mContext.getPackageName());
+        if (id <= 0){
+            Log.e(TAG, name + " not found drawalbe");
+        }
+        return id;
     }
 
 

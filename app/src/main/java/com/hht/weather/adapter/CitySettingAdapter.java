@@ -2,6 +2,7 @@ package com.hht.weather.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hht.weather.R;
+import com.hht.weather.data.DataDao;
+import com.hht.weather.data.Weather;
 import com.hht.weather.interface_.RecyclerViewClickInterface;
+import com.hht.weather.utils.HttpUtil;
 
 import java.util.ArrayList;
 
@@ -21,6 +25,7 @@ public class CitySettingAdapter extends RecyclerView.Adapter<CitySettingAdapter.
 
     private Context mContext = null;
     private ArrayList<String> mDatas = null;
+    private DataDao mDataDao = null;
 
     private RecyclerViewClickInterface mClickListener = null;
     private boolean mDeleteMode = false;
@@ -29,6 +34,7 @@ public class CitySettingAdapter extends RecyclerView.Adapter<CitySettingAdapter.
         super();
         mContext = context;
         mDatas = data;
+        mDataDao = new DataDao(mContext);
     }
 
     public void setClickListener(RecyclerViewClickInterface clickListener){
@@ -58,10 +64,18 @@ public class CitySettingAdapter extends RecyclerView.Adapter<CitySettingAdapter.
 
     @Override
     public void onBindViewHolder(CitySettingAdapter.CitySettingHolder holder, int position) {
-        holder.cityName.setText(mDatas.get(position));
-        holder.cityLocationFlag.setImageResource(R.drawable.location);
-        holder.cityWeather.setImageResource(R.drawable.weather_icon_rain2);
-        holder.cityTemperature.setText("28℃");
+        String cityName = mDatas.get(position);
+        String cityCode = mDataDao.qureyCityCodeByName(cityName);
+        Weather weather = mDataDao.qureyWeatherByCityName(cityName);
+        holder.cityName.setText(cityName);
+        if(cityName.equals(HttpUtil.getLocationCity())){
+            holder.cityLocationFlag.setImageResource(R.drawable.location);
+        }
+        holder.cityWeather.setImageResource(getImageResource("he" + weather.getCity_code()));
+        String tempMin = HttpUtil.getTemperature(weather.getTemp_min());
+        String tempMax = HttpUtil.getTemperature(weather.getTemp_max());
+        holder.cityTemperature.setText(tempMin + "/" + tempMax);
+
         holder.cityDelete.setVisibility(mDeleteMode ? View.VISIBLE : View.GONE);
         holder.cityDelete.setOnClickListener(this);
         holder.cityDelete.setTag(position);
@@ -82,6 +96,14 @@ public class CitySettingAdapter extends RecyclerView.Adapter<CitySettingAdapter.
     @Override
     public void onClick(View view) {
         mClickListener.onClickRecyclerView(view);
+    }
+
+    private int getImageResource(String name){
+        int id = mContext.getResources().getIdentifier(name, "drawable", mContext.getPackageName());
+        if (id <= 0){
+            Log.e(TAG, name + " not found drawalbe");
+        }
+        return id;
     }
 
     class CitySettingHolder extends RecyclerView.ViewHolder {

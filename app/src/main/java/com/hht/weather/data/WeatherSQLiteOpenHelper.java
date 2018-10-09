@@ -24,10 +24,12 @@ public class WeatherSQLiteOpenHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("create table if not exists " + DataDao.TABLE_CITY +
                 "(_id integer  primary key AUTOINCREMENT, city_code varchar(20), city_name varchar(20), province_name varchar(20), city_name_pinyin varchar(20), city_name_ab varchar(20) )");
         sqLiteDatabase.execSQL("create table if not exists "+ DataDao.TABLE_SELECTED_CITY +"(_id integer  primary key AUTOINCREMENT,city_name varchar(20))");
-        sqLiteDatabase.execSQL("create table if not exists "+ DataDao.TABLE_WEATHER +"(_id integer  primary key AUTOINCREMENT, city_code varchar(20),  cond_code integer, cond_txt varchar(10), temperature varchar(10)," +
-                "temperature_rand varchar(20), air_quality varchar(10), update_time integer)");
-        sqLiteDatabase.execSQL("create table if not exists "+ DataDao.TABLE_TIME_WEATHER +"(_id integer  primary key AUTOINCREMENT, city_code varchar(20), cond_code integer, cond_txt varchar(10), temperature varchar(10),  time integer)");
-        sqLiteDatabase.execSQL("create table if not exists "+ DataDao.TABLE_WEEK_WEATHER +"(_id integer  primary key AUTOINCREMENT, city_code varchar(20), cond_code integer, cond_txt varchar(10), temperature_rand varchar(20), date integer)");
+        sqLiteDatabase.execSQL("create table if not exists "+ DataDao.TABLE_WEATHER +"(_id integer  primary key AUTOINCREMENT, city_code varchar(20),  cond_code integer, cond_txt varchar(10), temperature INT," +
+                " temp_max INT, temp_min INT, air_quality varchar(10), update_time INT64)");
+        sqLiteDatabase.execSQL("create table if not exists "+ DataDao.TABLE_TIME_WEATHER +"(_id integer  primary key AUTOINCREMENT, city_code varchar(20), cond_code integer, cond_txt varchar(10), temperature INT,  time INT64)");
+        sqLiteDatabase.execSQL("create table if not exists "+ DataDao.TABLE_WEEK_WEATHER +"(_id integer  primary key AUTOINCREMENT, city_code varchar(20), cond_code integer, cond_txt varchar(10), temp_max INT, temp_min INT, date INT64)");
+    //TODO temperature rand clumn change , update database and datadao
+
     }
 
     @Override

@@ -15,6 +15,7 @@ import android.widget.RadioButton;
 import com.hht.weather.adapter.CitySettingAdapter;
 import com.hht.weather.data.DataDao;
 import com.hht.weather.interface_.RecyclerViewClickInterface;
+import com.hht.weather.utils.HttpUtil;
 
 import java.util.ArrayList;
 
@@ -46,20 +47,25 @@ public class WeatherSettingActivity extends Activity implements View.OnClickList
         mRadioButtonFahrenheit = findViewById(R.id.radioButton_Fahrenheit);
 
         mCitySettingRecyclerView = findViewById(R.id.recyclerView_city_collection);
-        mCitySettingAdapter = new CitySettingAdapter(mContext, new ArrayList());
         mCitySettingRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        initData();
+        initClickListener();
+    }
+
+    private void initData(){
+        mSelectedCitylist = mDataDao.getAllSelectedCity();
+        mSelectedCitylist.add(0, HttpUtil.getLocationCity());
+        mCitySettingAdapter = new CitySettingAdapter(mContext, mSelectedCitylist);
         mCitySettingRecyclerView.setAdapter(mCitySettingAdapter);
 
-        initClickListener();
-
-
     }
+
 
     @Override
     protected void onResume() {
         super.onResume();
-        mSelectedCitylist = mDataDao.getAllSelectedCity();
-        mCitySettingAdapter.setDatas(mSelectedCitylist);
+
     }
 
     private void initClickListener(){

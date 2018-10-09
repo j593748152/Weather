@@ -16,18 +16,25 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class HttpUtil {
 
     private static final String TAG = "HttpUtil";
     public static final String MY_KEY = "4051ea2ba37948af8b6995fbc3e9cb01";
-    public static final String HE_WEATHER_URL = "https://free-api.heweather.com/s6/weather/now?key=" + MY_KEY + "&";
+    public static final String HE_WEATHER_URL = "https://free-api.heweather.com/s6/weather?key=" + MY_KEY + "&";
     public static final String HE_WEATHER_HOURLY_URL = "https://free-api.heweather.com/s6/weather/hourly?key=" + MY_KEY + "&";
     public static final String HE_WEATHER_WEEK_URL = "https://free-api.heweather.com/s6/weather/forecast?key=" + MY_KEY + "&";
     public static final String HE_AIR_QUALITY_URL = "https://free-api.heweather.com/s6/air/now?key=" + MY_KEY + "&";
     public static final String HE_TEMP_RAND_URL = "https://free-api.heweather.com/s6/weather?key=" + MY_KEY + "&";
     public static final String HE_COMMON_CITY_URL = "https://search.heweather.com/top?group=cn&number=10&key=" + MY_KEY;
     public static final String HE_WEATHER_LOCATION = "location=";
+    public static final String HE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
+    public static final String HE_DATE_FORMAT = "yyyy-MM-dd";
+
+    public static String mTemperatureUnit = "℃";
+
 
     public static String getWebContent(String strUrl) {
         HttpURLConnection conn = null;
@@ -76,5 +83,40 @@ public class HttpUtil {
             }
         }
         return false;
+    }
+
+    public static long parseHeTime(String time) {
+        SimpleDateFormat sdf = new SimpleDateFormat(HE_TIME_FORMAT);
+        try {
+           return sdf.parse(time).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static long parseHeDate(String date){
+        SimpleDateFormat sdf = new SimpleDateFormat(HE_DATE_FORMAT);
+        try {
+            return sdf.parse(date).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+
+    public static String getTemperature(int celsius){
+        if (mTemperatureUnit.equals("℃")){
+            return celsius + mTemperatureUnit;
+        } else if (mTemperatureUnit.equals("℉")) {
+            long fahrenheit = Math.round(1.8 * celsius + 32);
+            return fahrenheit + mTemperatureUnit;
+        }
+        return null;
+    }
+
+    public static String getLocationCity(){
+        return "深圳";
     }
 }
