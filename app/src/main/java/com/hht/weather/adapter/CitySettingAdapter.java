@@ -18,6 +18,10 @@ import com.hht.weather.utils.HttpUtil;
 
 import java.util.ArrayList;
 
+/*
+WeatherSettingActivity item :  city list item
+display and remove selected city
+ */
 public class CitySettingAdapter extends RecyclerView.Adapter<CitySettingAdapter.CitySettingHolder>
         implements View.OnLongClickListener, View.OnClickListener {
 
@@ -69,12 +73,16 @@ public class CitySettingAdapter extends RecyclerView.Adapter<CitySettingAdapter.
         Weather weather = mDataDao.qureyWeatherByCityName(cityName);
         holder.cityName.setText(cityName);
         if(cityName.equals(HttpUtil.getLocationCity())){
-            holder.cityLocationFlag.setImageResource(R.drawable.location);
+            holder.cityLocationFlag.setVisibility(View.VISIBLE);
+        }else {
+            holder.cityLocationFlag.setVisibility(View.INVISIBLE);
         }
-        holder.cityWeather.setImageResource(getImageResource("he" + weather.getCity_code()));
-        String tempMin = HttpUtil.getTemperature(weather.getTemp_min());
-        String tempMax = HttpUtil.getTemperature(weather.getTemp_max());
-        holder.cityTemperature.setText(tempMin + "/" + tempMax);
+        if(weather != null){
+            holder.cityWeather.setImageResource(getImageResource("he" + weather.getCond_code()));
+            String tempMin = HttpUtil.getTemperature(weather.getTemp_min());
+            String tempMax = HttpUtil.getTemperature(weather.getTemp_max());
+            holder.cityTemperature.setText(tempMin + "/" + tempMax);
+        }
 
         holder.cityDelete.setVisibility(mDeleteMode ? View.VISIBLE : View.GONE);
         holder.cityDelete.setOnClickListener(this);

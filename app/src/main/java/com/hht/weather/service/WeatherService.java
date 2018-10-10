@@ -44,7 +44,7 @@ public class WeatherService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if(intent != null){
-            String city = intent.getStringExtra("city");
+            String city = intent.getStringExtra("cityName");
             getWeatherInfo(city);
         }
         return super.onStartCommand(intent, flags, startId);
@@ -72,6 +72,9 @@ public class WeatherService extends Service {
 
     }
 
+    /*
+      get city all weather data
+     */
     private void getWeatherInfo(final String city){
         new Thread(new Runnable() {
             @Override
@@ -95,12 +98,17 @@ public class WeatherService extends Service {
                     saveWeatherData(weatherJSON, airQualityJSON, tempRandJSON);
 
                 } catch (JSONException e) {
+                    //TODO server data exception warn
+                    Log.e(TAG, "server weather data exception");
                     e.printStackTrace();
                 }
             }
         }).start();
     }
 
+    /*
+    save weather data to data base
+     */
     private boolean saveWeatherData(JSONObject weatherJSON, JSONObject airQualityJSON, JSONObject tempRandJSON) throws JSONException{
         Weather cityWeather = new Weather();
         JSONArray HeWeather6 = weatherJSON.getJSONArray("HeWeather6");

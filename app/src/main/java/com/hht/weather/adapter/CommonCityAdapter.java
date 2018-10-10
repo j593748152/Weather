@@ -13,6 +13,9 @@ import com.hht.weather.R;
 
 import java.util.ArrayList;
 
+/*
+
+ */
 public class CommonCityAdapter extends RecyclerView.Adapter<CommonCityAdapter.CommonCityViewHolder>{
 
     private Context mContext = null;

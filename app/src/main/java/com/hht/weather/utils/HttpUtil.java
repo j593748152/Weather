@@ -19,13 +19,14 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+/*
+util abount weahter
+ */
 public class HttpUtil {
 
     private static final String TAG = "HttpUtil";
     public static final String MY_KEY = "4051ea2ba37948af8b6995fbc3e9cb01";
     public static final String HE_WEATHER_URL = "https://free-api.heweather.com/s6/weather?key=" + MY_KEY + "&";
-    public static final String HE_WEATHER_HOURLY_URL = "https://free-api.heweather.com/s6/weather/hourly?key=" + MY_KEY + "&";
-    public static final String HE_WEATHER_WEEK_URL = "https://free-api.heweather.com/s6/weather/forecast?key=" + MY_KEY + "&";
     public static final String HE_AIR_QUALITY_URL = "https://free-api.heweather.com/s6/air/now?key=" + MY_KEY + "&";
     public static final String HE_TEMP_RAND_URL = "https://free-api.heweather.com/s6/weather?key=" + MY_KEY + "&";
     public static final String HE_COMMON_CITY_URL = "https://search.heweather.com/top?group=cn&number=10&key=" + MY_KEY;

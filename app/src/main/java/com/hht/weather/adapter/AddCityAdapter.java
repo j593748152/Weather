@@ -14,6 +14,10 @@ import com.hht.weather.interface_.RecyclerViewClickInterface;
 
 import java.util.ArrayList;
 
+/*
+AddCityActivity  item : search and add to selected city
+ */
+
 public class AddCityAdapter extends RecyclerView.Adapter<AddCityAdapter.AddCityViewHolder> implements View.OnClickListener{
     private final static String TAG = "AddCityAdapter";
 
