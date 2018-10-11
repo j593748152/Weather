@@ -8,12 +8,14 @@
     android:orientation="vertical"
     android:background="@color/lb_playback_icon_highlight_no_theme">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="6dp"
-        android:layout_marginTop="5dp"
-        android:layout_gravity="center"
-        android:orientation="vertical"></LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_page_point"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager_weather"

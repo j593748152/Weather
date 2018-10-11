@@ -43,7 +43,7 @@ public class TimeWeatherAdapter extends RecyclerView.Adapter<TimeWeatherAdapter.
 
         TimeWeather timeWeather =  (TimeWeather) mDatas.get(position);
         long time = timeWeather.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("hh");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH");
         holder.time.setText(sdf.format(time) + "点");
         holder.timeWeather.setImageResource(getImageResource("he" + timeWeather.getCond_code()));
         holder.timeTemperature.setText(HttpUtil.getTemperature(timeWeather.getTemperature()));

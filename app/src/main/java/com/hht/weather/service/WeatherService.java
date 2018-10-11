@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 public class WeatherService extends Service {
     private static final String TAG = "WeatherService";
+    public static final String CITY_NAME = "cityName";
 
     private DataDao mDataDao = null;
     private ArrayList<String> mCitySelectedList = new ArrayList<String>();
@@ -135,11 +136,11 @@ public class WeatherService extends Service {
         Log.e(TAG, "6" + air_now_city.toString());
         cityWeather.setAir_quality(air_now_city.getString("qlty"));
 
+
+
         //TIP: https://free-api.heweather.com/s6/weather?key=4051ea2ba37948af8b6995fbc3e9cb01&location=shenzhen     get all data
         JSONArray hourly = array.getJSONArray("hourly");
         ArrayList<TimeWeather> timeWeathers = new ArrayList<>();
-        int temp_min = hourly.getJSONObject(0).getInt("tmp");
-        int temp_max = hourly.getJSONObject(0).getInt("tmp");
         for (int i = 0; i < hourly.length(); i++){
             JSONObject hourlyWeather =  hourly.getJSONObject(i);
             TimeWeather timeWeather = new TimeWeather();
@@ -148,13 +149,6 @@ public class WeatherService extends Service {
             timeWeather.setCond_txt(hourlyWeather.getString("cond_txt"));
             int temp = hourlyWeather.getInt("tmp");
             timeWeather.setTemperature(temp);
-
-            //get weather temperature range
-            if(temp > temp_max){
-                temp_max = temp;
-            }else if (temp < temp_min){
-                temp_min = temp;
-            }
 
             String timeStr = hourlyWeather.getString("time");
             Long time = HttpUtil.parseHeTime(timeStr);
@@ -165,16 +159,21 @@ public class WeatherService extends Service {
             }
             timeWeathers.add(timeWeather);
         }
-        cityWeather.setTemp_min(temp_min);
-        cityWeather.setTemp_max(temp_max);
-        mDataDao.updateWeather(cityWeather);
-        mDataDao.insertTimeWeather(timeWeathers);
+
 
         // week weather data
         JSONArray daily_forecast = array.getJSONArray("daily_forecast");
         ArrayList<WeekWeather> weekWeathers = new ArrayList<>();
         for (int i = 0; i < daily_forecast.length(); i++){
+
             JSONObject dailyWeather =  daily_forecast.getJSONObject(i);
+            if(i == 0){
+                //for today weather temprature data
+                cityWeather.setTemp_min(dailyWeather.getInt("tmp_min"));
+                cityWeather.setTemp_max(dailyWeather.getInt("tmp_max"));
+                continue;
+            }
+
             WeekWeather weekWeather = new WeekWeather();
             weekWeather.setCity_code(basic.getString("cid"));
             weekWeather.setCond_code(dailyWeather.getInt("cond_code_d"));
@@ -191,6 +190,9 @@ public class WeatherService extends Service {
             }
             weekWeathers.add(weekWeather);
         }
+
+        mDataDao.updateWeather(cityWeather);
+        mDataDao.insertTimeWeather(timeWeathers);
         mDataDao.insertWeekWeather(weekWeathers);
         return true;
     }

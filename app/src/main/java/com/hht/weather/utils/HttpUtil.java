@@ -38,6 +38,7 @@ public class HttpUtil {
 
 
     public static String getWebContent(String strUrl) {
+        Log.d(TAG, "getWebContent " + strUrl);
         HttpURLConnection conn = null;
         try {
             URL url = new URL(strUrl);

@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hht.weather.adapter.PagePointAdapter;
 import com.hht.weather.adapter.TimeWeatherAdapter;
 import com.hht.weather.adapter.WeatherViewPagerAdapter;
 import com.hht.weather.adapter.WeekWeatherAdapter;
@@ -31,6 +32,10 @@ public class WeatherActivity extends Activity{
     private final static String TAG = "WeatherActivity";
 
     private Context mContext = null;
+
+    private RecyclerView mRecyclerViewPagePoint = null;
+    private PagePointAdapter mPagePointAdapter = null;
+
     private ViewPager mViewPagerWeather = null;
     private WeatherViewPagerAdapter mWeatherViewPagerAdapter = null;
     private DataDao mDataDao = null;
@@ -50,7 +55,7 @@ public class WeatherActivity extends Activity{
         initData();
 
         Intent startWeatherService = new Intent(this, WeatherService.class);
-        startWeatherService.putExtra("city", "all");
+        startWeatherService.putExtra(WeatherService.CITY_NAME, mLocation);
         startService(startWeatherService);
 
     }
@@ -62,20 +67,27 @@ public class WeatherActivity extends Activity{
         mSelectedcityList = mDataDao.getAllSelectedCity();
         mSelectedcityList.add(0, mLocation);
         mWeatherViewPagerAdapter.setDatas(mSelectedcityList);
+        mPagePointAdapter.setSize(mSelectedcityList.size());
         if(mSelectedcityList.contains(intentCity)){
-            mViewPagerWeather.setCurrentItem(mSelectedcityList.indexOf(intentCity));
+            int index = mSelectedcityList.indexOf(intentCity);
+            mViewPagerWeather.setCurrentItem(index);
+            mPagePointAdapter.setIndex(index);
         }
     }
 
     private void initView(){
+        mRecyclerViewPagePoint = findViewById(R.id.recyclerView_page_point);
         mViewPagerWeather = findViewById(R.id.viewPager_weather);
     }
 
     private void initData(){
         mSelectedcityList = mDataDao.getAllSelectedCity();
         mSelectedcityList.add(0, mLocation);
-        mWeatherViewPagerAdapter = new WeatherViewPagerAdapter(this, mSelectedcityList);
+        mWeatherViewPagerAdapter = new WeatherViewPagerAdapter(mContext, mSelectedcityList);
         mViewPagerWeather.setAdapter(mWeatherViewPagerAdapter);
+
+        mPagePointAdapter = new PagePointAdapter(mContext, mSelectedcityList.size());
+        mRecyclerViewPagePoint.setAdapter(mPagePointAdapter);
     }
 
     @Override

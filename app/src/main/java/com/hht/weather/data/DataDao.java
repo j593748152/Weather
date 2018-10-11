@@ -22,8 +22,6 @@ public class DataDao {
     public static final String TABLE_TIME_WEATHER = "time_weather";
     public static final String TABLE_WEEK_WEATHER = "week_weather";
 
-    private static String cityCsv = "china-city-list.csv";
-
     private Context mContext = null;
     private SQLiteDatabase db = null;
     private WeatherSQLiteOpenHelper dbHelper = null;
@@ -33,38 +31,6 @@ public class DataDao {
         mContext = context;
         dbHelper = new WeatherSQLiteOpenHelper(mContext, DB_NAME, null, 1);
         db = dbHelper.getWritableDatabase();
-
-        //init city data
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (qureyAllCity() < 1) {
-                    AssetManager assetManager = mContext.getAssets() ;
-                    try {
-                        InputStream cityCsvInput = assetManager.open(cityCsv) ;
-                        ArrayList<City> cityList = FileParser.parseCityCsv(cityCsvInput);
-                        for (City city : cityList){
-                            insertCity(city);
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
-
-    }
-
-    public boolean insertCity(City city) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("city_code", city.getCity_code());
-        contentValues.put("city_name", city.getCity_name());
-        contentValues.put("province_name", city.getProvince_name());
-        contentValues.put("city_name_pinyin", city.getCity_name_pinyin());
-        contentValues.put("city_name_ab", city.getCity_name_ab());
-        long l = db.insert(TABLE_CITY, null, contentValues);
-        Log.d(TAG , "insert city " + l);
-        return true;
     }
 
     public ArrayList<City>  qureyCityByName(String city_name){
@@ -89,8 +55,10 @@ public class DataDao {
 
     public String qureyCityCodeByName(String cityName){
         Cursor cursor = db.query(TABLE_CITY, new String[]{"city_code"},"city_name=?", new String[]{cityName},null,null,null);
+        Log.d(TAG, cityName + " get data " + cursor.getCount());
         cursor.moveToFirst();
         String cityCode = cursor.getString(0);
+        Log.d(TAG, cityName + " qureyCityCodeByName city code = " + cityCode);
         return cityCode;
     }
 
