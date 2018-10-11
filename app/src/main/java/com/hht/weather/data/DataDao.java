@@ -2,15 +2,10 @@ package com.hht.weather.data;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.hht.weather.utils.FileParser;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class DataDao {
@@ -62,12 +57,6 @@ public class DataDao {
         return cityCode;
     }
 
-    public int qureyAllCity(){
-        Cursor cursor = db.query(TABLE_CITY, new String[]{"_id"},null, null,null,null,null);
-        Log.d(TAG, "city count " + cursor.getCount());
-        return cursor.getCount();
-    }
-
 
     public boolean insertSelectedCity(String cityName) {
         if(hasSelectedCity(cityName)){
@@ -83,7 +72,7 @@ public class DataDao {
 
     public boolean deleteSelectedCity(String cityName) {
         int i = db.delete(TABLE_SELECTED_CITY,"city_name=?",new String[]{cityName});
-        if(i>0){
+        if(i > 0){
             return true;
         }
         return false;
@@ -165,7 +154,6 @@ public class DataDao {
             weather.setUpdate_time(cursor.getLong(8));
         }else {
             Log.e(TAG, cityCode + " has weather " + cursor.getCount());
-            return null;
         }
 
         return weather;
