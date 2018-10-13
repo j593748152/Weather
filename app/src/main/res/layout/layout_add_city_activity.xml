@@ -59,18 +59,18 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView_tittle"
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:textColor="@color/text_color_gray"
-        android:text="常用城市/搜索结果" />
+        android:text="常用城市" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView_add_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        android:orientation="vertical"/>
+        android:orientation="vertical" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView_common_city"
@@ -84,12 +84,14 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
+        android:visibility="gone"
         android:src="@drawable/city"/>
     <TextView
         android:id="@+id/textView_no_result"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:textColor="@color/text_color_gray"
+        android:visibility="gone"
         android:text="无匹配结果，请重新输入"
         android:layout_gravity="center"/>
 </LinearLayout>

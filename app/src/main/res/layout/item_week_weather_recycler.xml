@@ -11,14 +11,14 @@
         android:layout_height="48dp"
         android:layout_weight="1"
         android:gravity="right"
-        android:text="TextView" />
+        android:text="--/--" />
 
     <ImageView
         android:id="@+id/imageView_item_weather"
         android:layout_width="11dp"
         android:layout_height="48dp"
         android:layout_weight="1"
-        android:src="@drawable/weather_icon_fog" />
+        android:src="@drawable/he100" />
 
     <TextView
         android:id="@+id/textView_item_temperature"
@@ -26,5 +26,5 @@
         android:layout_height="48dp"
         android:layout_weight="1"
         android:gravity="left"
-        android:text="TextView" />
+        android:text="--℃/--℃" />
 </LinearLayout>

@@ -56,4 +56,23 @@ public class FileParser {
         Log.d(TAG, "city list size " + cityList.size());
         return cityList;
     }
+
+    public static ArrayList<String> getCommonCityList(InputStream commonCityInputStream){
+        ArrayList<String> commonCityList = new ArrayList<>();
+        byte[] bytes = new byte[0];
+        try {
+            bytes = new byte[commonCityInputStream.available()];
+            commonCityInputStream.read(bytes);
+            String str = new String(bytes);
+            String[] list = str.split(",");
+            for(String s : list){
+                commonCityList.add(s.trim());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return commonCityList;
+    }
+
 }

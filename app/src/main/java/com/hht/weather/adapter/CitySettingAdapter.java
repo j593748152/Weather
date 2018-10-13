@@ -69,7 +69,6 @@ public class CitySettingAdapter extends RecyclerView.Adapter<CitySettingAdapter.
     @Override
     public void onBindViewHolder(CitySettingAdapter.CitySettingHolder holder, int position) {
         String cityName = mDatas.get(position);
-        String cityCode = mDataDao.qureyCityCodeByName(cityName);
         Weather weather = mDataDao.qureyWeatherByCityName(cityName);
         holder.cityName.setText(cityName);
         if(cityName.equals(HttpUtil.getLocationCity())){

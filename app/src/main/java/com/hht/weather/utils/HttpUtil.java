@@ -28,7 +28,6 @@ public class HttpUtil {
     public static final String MY_KEY = "4051ea2ba37948af8b6995fbc3e9cb01";
     public static final String HE_WEATHER_URL = "https://free-api.heweather.com/s6/weather?key=" + MY_KEY + "&";
     public static final String HE_AIR_QUALITY_URL = "https://free-api.heweather.com/s6/air/now?key=" + MY_KEY + "&";
-    public static final String HE_TEMP_RAND_URL = "https://free-api.heweather.com/s6/weather?key=" + MY_KEY + "&";
     public static final String HE_COMMON_CITY_URL = "https://search.heweather.com/top?group=cn&number=10&key=" + MY_KEY;
     public static final String HE_WEATHER_LOCATION = "location=";
     public static final String HE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
@@ -53,7 +52,6 @@ public class HttpUtil {
             while ((line = reader.readLine()) != null) {
                 stringBuffer.append(line);
             }
-            Log.d(TAG, stringBuffer.toString());
             return stringBuffer.toString();
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -79,7 +77,7 @@ public class HttpUtil {
             if (net_info != null) {
                 for (int i = 0; i < net_info.length; i++) {
                     if (net_info[i].getState() == NetworkInfo.State.CONNECTED) {
-                        return true;
+                        return false;
                     }
                 }
             }

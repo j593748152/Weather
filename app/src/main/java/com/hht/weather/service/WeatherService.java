@@ -77,30 +77,38 @@ public class WeatherService extends Service {
       get city all weather data
      */
     private void getWeatherInfo(final String city){
+        if (city == null) {
+            Log.e(TAG, "city name is null");
+            return;
+        }
+        if (!HttpUtil.isNetworkAvalible(this)) {
+            return;
+        }
+
+
         new Thread(new Runnable() {
             @Override
             public void run() {
+                //TIP: https://free-api.heweather.com/s6/weather?key=4051ea2ba37948af8b6995fbc3e9cb01&location=shenzhen     get all data
                 String weatherUrl = HttpUtil.HE_WEATHER_URL + HttpUtil.HE_WEATHER_LOCATION + city;
                 String airQualityUrl = HttpUtil.HE_AIR_QUALITY_URL + HttpUtil.HE_WEATHER_LOCATION + city;
-                String tempRandUrl = HttpUtil.HE_TEMP_RAND_URL + HttpUtil.HE_WEATHER_LOCATION + city;
 
                 String weatherResult = HttpUtil.getWebContent(weatherUrl);
                 String airQualityResult = HttpUtil.getWebContent(airQualityUrl);
-                String tempRandResult = HttpUtil.getWebContent(tempRandUrl);
 
                 JSONObject weatherJSON = null;
                 JSONObject airQualityJSON = null;
-                JSONObject tempRandJSON = null;
                 try {
                     weatherJSON = new JSONObject(weatherResult);
                     airQualityJSON = new JSONObject(airQualityResult);
-                    tempRandJSON = new JSONObject(tempRandResult);
 
-                    saveWeatherData(weatherJSON, airQualityJSON, tempRandJSON);
+                    saveWeatherData(weatherJSON, airQualityJSON);
 
                 } catch (JSONException e) {
-                    //TODO server data exception warn
+                    //TODO server weather data exception
                     Log.e(TAG, "server weather data exception");
+                    Log.e(TAG, "weatherResult : " + weatherResult);
+                    Log.e(TAG, "airQualityResult : " + airQualityResult);
                     e.printStackTrace();
                 }
             }
@@ -110,14 +118,11 @@ public class WeatherService extends Service {
     /*
     save weather data to data base
      */
-    private boolean saveWeatherData(JSONObject weatherJSON, JSONObject airQualityJSON, JSONObject tempRandJSON) throws JSONException{
+    private boolean saveWeatherData(JSONObject weatherJSON, JSONObject airQualityJSON) throws JSONException{
         Weather cityWeather = new Weather();
         JSONArray HeWeather6 = weatherJSON.getJSONArray("HeWeather6");
-        Log.e(TAG, "1 " + HeWeather6.toString());
         JSONObject array = HeWeather6.getJSONObject(0);
-        Log.e(TAG, "2 " + array.toString());
         JSONObject basic = array.getJSONObject("basic");
-        Log.e(TAG, "3" + basic.toString());
         cityWeather.setCity_code( basic.getString("cid"));
 
         JSONObject update =  array.getJSONObject("update");
@@ -129,16 +134,10 @@ public class WeatherService extends Service {
         cityWeather.setTemperature(now.getInt("tmp"));
 
         JSONArray HeWeather = airQualityJSON.getJSONArray("HeWeather6");
-        Log.e(TAG, "4" + HeWeather.toString());
         JSONObject index =  HeWeather.getJSONObject(0);
-        Log.e(TAG, "5" + index.toString());
         JSONObject air_now_city = index.getJSONObject("air_now_city");
-        Log.e(TAG, "6" + air_now_city.toString());
         cityWeather.setAir_quality(air_now_city.getString("qlty"));
 
-
-
-        //TIP: https://free-api.heweather.com/s6/weather?key=4051ea2ba37948af8b6995fbc3e9cb01&location=shenzhen     get all data
         JSONArray hourly = array.getJSONArray("hourly");
         ArrayList<TimeWeather> timeWeathers = new ArrayList<>();
         for (int i = 0; i < hourly.length(); i++){

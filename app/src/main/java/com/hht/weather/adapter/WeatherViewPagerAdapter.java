@@ -151,6 +151,11 @@ public class WeatherViewPagerAdapter extends PagerAdapter implements View.OnClic
         container.removeView((View)object);
     }
 
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return POSITION_NONE;
+        //return super.getItemPosition(object);
+    }
 
     @Override
     public void onClick(View view) {

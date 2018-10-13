@@ -40,7 +40,10 @@ public class TimeWeatherAdapter extends RecyclerView.Adapter<TimeWeatherAdapter.
     @Override
     public void onBindViewHolder(TimeWeatherAdapter.TimeWeatherViewHolder holder, int position) {
         //TODO set item data,time must server`s time
-
+        if(mDatas == null){
+            Log.e(TAG ,"mDatas is null, hourly weather diaplay error");
+            return;
+        }
         TimeWeather timeWeather =  (TimeWeather) mDatas.get(position);
         long time = timeWeather.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("HH");

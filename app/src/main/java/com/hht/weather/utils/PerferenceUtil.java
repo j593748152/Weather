@@ -9,6 +9,8 @@ public class PerferenceUtil {
     }
 
     public static ArrayList<String> getCommonCityList(){
+
+
         return null;
     }
 }

@@ -112,8 +112,10 @@ public class DataDao {
     public void updateWeather(Weather weather){
         String cityCode = weather.getCity_code();
         int id = qureyWeatherID(cityCode);
-        if (id < 0) {
+        if (id == -1) {
             insertWeather(weather);
+        } else if (id == -100){
+            Log.e(TAG, "cityCode updateWeather error");
         }
         ContentValues contentValues = new ContentValues();
         contentValues.put("city_code", weather.getCity_code());
@@ -132,9 +134,12 @@ public class DataDao {
         if(cursor.getCount() == 1){
             cursor.moveToFirst();
             return cursor.getInt(0);
-        }else {
-            Log.e(TAG, cityCode + " has " + cursor.getCount());
+        } else if(cursor.getCount() < 1){
+            Log.i(TAG, cityCode + "not has weather data");
             return -1;
+        }else {
+            Log.e(TAG, cityCode + " weather data more than one");
+            return -100;
         }
     }
 
@@ -154,8 +159,8 @@ public class DataDao {
             weather.setUpdate_time(cursor.getLong(8));
         }else {
             Log.e(TAG, cityCode + " has weather " + cursor.getCount());
+            return null;
         }
-
         return weather;
     }
 

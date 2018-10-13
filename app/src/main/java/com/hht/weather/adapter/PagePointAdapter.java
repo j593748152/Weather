@@ -37,6 +37,8 @@ public class PagePointAdapter extends RecyclerView.Adapter<PagePointAdapter.Page
     public PagePointViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         PagePointViewHolder viewHolder ;
         ImageView imageView = new ImageView(mContext);
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(40,30);
+        imageView.setLayoutParams(params);
         viewHolder = new PagePointViewHolder(imageView);
         return viewHolder;
     }

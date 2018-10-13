@@ -33,6 +33,10 @@ public  class WeekWeatherAdapter extends RecyclerView.Adapter<WeekWeatherAdapter
     @Override
     public void onBindViewHolder(WeekWeatherViewHolder holder, int position) {
         //TODO set item data,time must server`s time
+        if(mDatas == null){
+            Log.e(TAG ,"mDatas is null, dailyt weather diaplay error");
+            return;
+        }
         WeekWeather weekWeather = (WeekWeather) mDatas.get(position);
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd");
         holder.date.setText(sdf.format(weekWeather.getDate()));
