@@ -4,4 +4,7 @@
     <style name="TransparentDialog" parent="@android:style/Theme.Holo.Dialog.NoActionBar">
         <item name="android:windowBackground">@color/transparent</item>
     </style>
+    <style name="TransparentBackground" parent = "@android:style/Theme.NoTitleBar">
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
 </resources>

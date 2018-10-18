@@ -76,7 +76,7 @@ public class WeatherService extends Service {
     /*
       get city all weather data
      */
-    private void getWeatherInfo(final String city){
+    private void  getWeatherInfo(final String city){
         if (city == null) {
             Log.e(TAG, "city name is null");
             return;
@@ -118,7 +118,7 @@ public class WeatherService extends Service {
     /*
     save weather data to data base
      */
-    private boolean saveWeatherData(JSONObject weatherJSON, JSONObject airQualityJSON) throws JSONException{
+    private synchronized boolean saveWeatherData(JSONObject weatherJSON, JSONObject airQualityJSON) throws JSONException{
         Weather cityWeather = new Weather();
         JSONArray HeWeather6 = weatherJSON.getJSONArray("HeWeather6");
         JSONObject array = HeWeather6.getJSONObject(0);

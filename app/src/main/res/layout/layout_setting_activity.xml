@@ -29,7 +29,8 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:textColor="@color/text_color_black"
-            android:text="设置" />
+            android:text="设置"
+            android:textSize="@dimen/tittle"/>
     </LinearLayout>
 
     <LinearLayout

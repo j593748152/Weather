@@ -27,7 +27,8 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:textColor="@color/text_color_black"
-            android:text="添加城市" />
+            android:text="添加城市"
+            android:textSize="@dimen/tittle"/>
 
     </LinearLayout>
 

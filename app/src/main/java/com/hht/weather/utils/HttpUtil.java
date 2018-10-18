@@ -77,7 +77,7 @@ public class HttpUtil {
             if (net_info != null) {
                 for (int i = 0; i < net_info.length; i++) {
                     if (net_info[i].getState() == NetworkInfo.State.CONNECTED) {
-                        return false;
+                        return true;
                     }
                 }
             }
